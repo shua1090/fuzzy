@@ -1,13 +1,9 @@
 import time
 import curses
-from csvinterface import verbreturns
 import fuzzy as fzf
 import csvinterface
 
-global collections
 collections = csvinterface.verbreturns()
-
-print(len(collections))
 
 
 def clearbreak(stdscr):
@@ -16,7 +12,7 @@ def clearbreak(stdscr):
     return 1
 
 
-def main(stdscr, text: str, ind: int) -> str:
+def main(stdscr, text: str, ind: int, collections:list) -> str:
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_YELLOW)
@@ -31,12 +27,13 @@ def main(stdscr, text: str, ind: int) -> str:
     else:
         stdscr.addstr(text)
     halt = False
-
+    backspace = False
     while not halt:
         c = stdscr.getch()
 
         if c == 263:
             clearbreak(stdscr)
+            backspace = True
             break
 
         if c == 258:
@@ -81,38 +78,44 @@ def main(stdscr, text: str, ind: int) -> str:
                     break
             tempcount = 0
 
-        time.sleep(0.05)
-    return text, ind, halt
+        time.sleep(0.1)
+        
+    return text, ind, halt, backspace
 
 
-global text
-text = ""
-ind2 = -1
-ind = 0
-halt = False
-while not halt:
-    try:
-        text, ind, halt = curses.wrapper(main, text, ind2)
-        if ind2 != ind:
-            text = text
-        elif ind2 == ind:
-            text = text[:-1]
-            ind = -1
-        ind2 = ind
-    except KeyboardInterrupt:
-        break
+def lauf(coll):
+    global text
+    text = ""
+    ind2 = -1
+    ind = 0
+    halt = False
+    while not halt:
+        try:
+            text, ind, halt, backspace = curses.wrapper(main, text, ind2, coll)
+            if ind2 != ind:
+                text = text
+            elif ind2 == ind and backspace == True:
+                text = text[:-1]
+                ind = -1
+            ind2 = ind
+        except KeyboardInterrupt:
+            break
+    return text, ind2
 
-x = fzf.fuzzyfinder(text, collections)
-try:
-    print("You chose: " + str(x[ind]))
-except:
-    pass
 
-z = str(x[ind])
-from PyDictionary import PyDictionary
 
-try:
-    dictionary = PyDictionary(z)
-    print(dictionary.printMeanings())
-except:
-    print("Definition not found")
+text, ind = lauf(collections)
+
+print("You chose: " + str(fzf.fuzzyfinder(text, collections)[ind]))
+
+
+
+# Testing:
+# z = str(x[ind])
+# from PyDictionary import PyDictionary
+# 
+# try:
+    # dictionary = PyDictionary(z)
+    # print(dictionary.printMeanings())
+# except:
+    # print("Definition not found")
