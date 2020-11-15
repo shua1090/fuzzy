@@ -13,8 +13,8 @@ def clearbreak(stdscr):
 
 
 def main(stdscr, text: str, ind: int, collections:list) -> str:
-    curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
-    curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(4, curses.COLOR_CYAN, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_YELLOW)
 
     stdscr.keypad(True)
@@ -55,7 +55,7 @@ def main(stdscr, text: str, ind: int, collections:list) -> str:
                     if ind == x.index(val):
                         stdscr.addstr("\n->" + val, curses.color_pair(3))
                     else:
-                        stdscr.addstr("\n" + val)
+                        stdscr.addstr("\n" + val, curses.color_pair(4))
                 except:
                     break
             tempcount = 0
@@ -73,18 +73,17 @@ def main(stdscr, text: str, ind: int, collections:list) -> str:
 
             for val in fzf.fuzzyfinder(text, collection=collections):
                 try:
-                    stdscr.addstr("\n" + val)
+                    stdscr.addstr("\n" + val, curses.color_pair(4))
                 except:
                     break
             tempcount = 0
 
         time.sleep(0.1)
-        
+
     return text, ind, halt, backspace
 
 
-def lauf(coll):
-    global text
+def lauf(coll:list):
     text = ""
     ind2 = -1
     ind = 0
@@ -100,6 +99,7 @@ def lauf(coll):
             ind2 = ind
         except KeyboardInterrupt:
             break
+
     return text, ind2
 
 
