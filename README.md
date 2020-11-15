@@ -6,5 +6,12 @@ As of now, the program searches a 7000 long list of german verbs, but that can b
 
 Only works on linux (curses)
 
+To use the code, run main.py
+Begin typing in the name of a verb.
+Results should start populating below what you type.
+Use the arrow (up and down) keys to navigate down or up the results (seen by a ">" on the left of the results)
+Use the right arrow key to select one of the verbs. The program will simply exit and use python's builtin print to display your selection.
+
+
 Sincerely,
     Shynn Lawrence
