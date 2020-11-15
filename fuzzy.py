@@ -2,12 +2,12 @@ import re
 
 # populate with results
 # needs optimizations for larger lists
-collection = ['test', 'nice', "migarov", "migasch", "mig"]
+collection = ["test", "nice", "migarov", "migasch", "mig"]
 
 
 def fuzzyfinder(user_input, collection):
     suggestions = []
-    pattern = '.*?'.join(user_input)
+    pattern = ".*?".join(user_input)
     regex = re.compile(pattern)
     for item in collection:
         match = regex.search(item)
