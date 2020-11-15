@@ -1,8 +1,14 @@
+# Author: Govind Gnanakumar
+
 import re
 
-# populate with results
-# needs optimizations for larger lists
-collection = ["test", "nice", "migarov", "migasch", "mig"]
+# needs optimizations for larger lists, like:
+# asynchronously filtering suggestions so not all of them are pupulated at once
+# or just showing some x top results rather than all of them at once
+# add smartcase stuff
+# populate with possible words
+
+collection = []
 
 
 def fuzzyfinder(user_input, collection):
@@ -14,3 +20,6 @@ def fuzzyfinder(user_input, collection):
         if match:
             suggestions.append((len(match.group()), match.start(), item))
     return [x for _, _, x in sorted(suggestions)]
+
+# ranked results
+# print(fuzzyfinder('input', collection))
