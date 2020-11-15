@@ -1,4 +1,4 @@
-# fuzzy
+# Fuzzy
 Thank you [@sandkoan](https://github.com/sandkoan), for providing the fuzzy algorithm and introducing me to the world of fuzzy finders.
 Code written in python and implemented through curses module.
 
