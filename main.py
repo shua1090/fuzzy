@@ -26,7 +26,10 @@ def main(stdscr, text: str, ind: int) -> str:
     stdscr.clear()
     curses.cbreak()
     tempcount = 2
-    stdscr.addstr(text)
+    if ind == -1:
+        stdscr.addstr(text, curses.color_pair(3))
+    else:
+        stdscr.addstr(text)
     halt = False
 
     while not halt:
@@ -85,6 +88,7 @@ def main(stdscr, text: str, ind: int) -> str:
 global text
 text = ""
 ind2 = -1
+ind = 0
 halt = False
 while not halt:
     try:
@@ -93,6 +97,7 @@ while not halt:
             text = text
         elif ind2 == ind:
             text = text[:-1]
+            ind = -1
         ind2 = ind
     except KeyboardInterrupt:
         break
