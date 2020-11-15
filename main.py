@@ -5,12 +5,10 @@ import csvinterface
 
 collections = csvinterface.verbreturns()
 
-
 def clearbreak(stdscr):
     curses.flushinp()
     stdscr.clear()
     return 1
-
 
 def main(stdscr, text: str, ind: int, collections:list) -> str:
     curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
@@ -82,7 +80,6 @@ def main(stdscr, text: str, ind: int, collections:list) -> str:
 
     return text, ind, halt, backspace
 
-
 def lauf(coll:list):
     text = ""
     ind2 = -1
@@ -102,15 +99,10 @@ def lauf(coll:list):
 
     return text, ind2
 
-
-
 text, ind = lauf(collections)
 
 print("You chose: " + str(fzf.fuzzyfinder(text, collections)[ind]))
 
-
-
-# Testing:
 # z = str(x[ind])
 # from PyDictionary import PyDictionary
 # 

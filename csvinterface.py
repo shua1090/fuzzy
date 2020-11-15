@@ -1,7 +1,6 @@
 def verbreturns():
     return infinitives
-
-
+    
 def formatting(verbs):
     length = len(verbs)
     bad_things = ["⁵", "³", "²"]
